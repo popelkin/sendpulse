@@ -25,4 +25,4 @@ Run the tests from project directory:
 ```
 php ./vendor/phpunit/phpunit/phpunit
 ```
-<img src="http://joxi.ru/zANOd6VCBdbwpr">
+<img src="https://github.com/popelkin/sendpulse/blob/master/tests.jpg">
