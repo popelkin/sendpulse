@@ -8,6 +8,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 //
 $env = new Dotenv(__DIR__);
 $env->load();
+$_ENV['DB_DATABASE'] .= '_test';
 ///
 
 //
