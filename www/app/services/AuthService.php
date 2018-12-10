@@ -29,7 +29,7 @@ class AuthService
             }
             Factory::AuthVendor()->login($email, $password);
         } catch (\Delight\Auth\InvalidEmailException $e) {
-            $errors['incorrect_email'] = 'Некорректный e-mail';
+            $errors['incorrect_email'] = 'Некорректный e-mail или такого пользователя нет в базе';
         } catch (\Delight\Auth\InvalidPasswordException $e) {
             $errors['password'] = 'Некорректный пароль или пароли не совпадают';
         } catch (\Delight\Auth\TooManyRequestsException $e) {
