@@ -95,7 +95,6 @@ class TaskController extends MainController
     public function updateTask($id, $data)
     {
         try {
-            Factory::TaskService()->updateTask($id, $data);
             $result = Factory::TaskService()->updateTask($id, $data);
 
             if (is_array($result)) {
