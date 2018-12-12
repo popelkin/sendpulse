@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Factory;
 use App\Models\Task;
 
 class TaskService
@@ -17,6 +18,11 @@ class TaskService
         if (!$task = Task::find($id)) {
             throw new \Exception('Задачи с таким ID не существует');
         }
+     
+        if ($task->user_id != Factory::AuthVendor()->getUserId()) {
+            throw new \Exception('Задача не принадлежит текущему пользователю');
+        }
+        
         return $task;
     }
 
@@ -28,6 +34,7 @@ class TaskService
     public function deleteTaskByID($id)
     {
         $task = $this->getTaskByID($id);
+        
         if ($children = $task->children()) {
             $children->delete();
         }
@@ -92,7 +99,7 @@ class TaskService
     {
         $errors = [];
         foreach ($data as $k => $v) {
-            if (in_array($k, ['title', 'body', 'date', 'parent_id'])) {
+            if (in_array($k, ['title', 'body', 'date', 'parent_id', 'user_id'])) {
                 if (!trim(strip_tags($v))) {
                     if ($k == 'title') {
                         $errors['incorrect_title'] = 'Некорректное поле "Заголовок"';
@@ -122,6 +129,17 @@ class TaskService
                         $errors['wrong_level'] = 'Попытка добавить задачу в подзадачу';
                     }
                 }
+                if ($k == 'user_id') {
+                    try {
+                        $userID = Factory::AuthVendor()->getUserId();
+                        if ($userID != $v) {
+                            // trying to add/edit task of wrong user
+                            throw new \Exception();
+                        }
+                    } catch (\Exception $e) {
+                        $errors['wrong_user'] = 'Попытка назначить задаче чужого пользователя';
+                    }
+                }
             }
         }
         if (count($errors)) {
@@ -131,4 +149,43 @@ class TaskService
         return true;
     }
 
+    /**
+     * @param string $sort
+     * @param null $userID
+     * @return mixed
+     * @throws \Exception
+     */
+    public function getUserTasks($sort = 'DESC', $userID = null)
+    {
+        if (!$userID) {
+            // getting current logined user
+            $userID = Factory::AuthVendor()->getUserId();
+        }
+        
+        // checking user really exists
+        Factory::UserService()->getUserByID($userID);
+        
+        return Task::where('user_id', $userID)->orderBy('date', $sort)->get();
+    }
+
+    /**
+     * @param int $parentID
+     * @return mixed
+     */
+    public function getTasksByParentID($parentID = 0)
+    {
+        $userID = Factory::AuthVendor()->getUserId();
+        return Task::where('parent_id', $parentID)->where('user_id', $userID)->get()->toArray();
+    }
+    
+    /**
+     * @param int $parentID
+     * @return array
+     */
+    public function getChildrenTasksByParentID($parentID = 0)
+    {
+        $userID = Factory::AuthVendor()->getUserId();
+        return Task::with('children')->where('parent_id', $parentID)->where('user_id', $userID)->get()->toArray();
+    }
+    
 }

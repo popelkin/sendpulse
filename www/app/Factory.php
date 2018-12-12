@@ -6,6 +6,7 @@ use Delight\Auth\Auth;
 use Philo\Blade\Blade;
 use App\Services\TaskService;
 use App\Services\AuthService;
+use App\Services\UserService;
 use App\Controllers\TaskController;
 use App\Controllers\AuthController;
 
@@ -45,6 +46,14 @@ class Factory
         return self::$cache[__METHOD__] ?? self::$cache[__METHOD__] = new AuthService();
     }
 
+    /**
+     * @return UserService
+     */
+    public static function UserService()
+    {
+        return self::$cache[__METHOD__] ?? self::$cache[__METHOD__] = new UserService();
+    }
+    
     /**
      * @return AuthController
      */

@@ -14,6 +14,7 @@ class Task extends Model
         'date',
         'body',
         'parent_id',
+        'user_id',
         'done',
     ];
 

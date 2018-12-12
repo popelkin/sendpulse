@@ -19,7 +19,7 @@ class TaskController extends MainController
         }
         $this->display('tasks', [
             'email' => Factory::AuthVendor()->getEmail(),
-            'tasks' => Task::orderBy('date', $sort)->get(),
+            'tasks' => Factory::TaskService()->getUserTasks($sort),
             'sort' => $sort
         ]);
     }
@@ -44,7 +44,7 @@ class TaskController extends MainController
     {
         $this->display('create', [
             'email' => Factory::AuthVendor()->getEmail(),
-            'tasks' => Task::with('children')->where('parent_id', 0)->get(),
+            'tasks' => Factory::TaskService()->getChildrenTasksByParentID(),
             'delimiter' => '',
         ]);
     }
@@ -54,14 +54,16 @@ class TaskController extends MainController
      */
     public function addTask($data)
     {
+        $data['user_id'] = Factory::AuthVendor()->getUserId();
+        
         $result = Factory::TaskService()->addTask($data);
 
         if (is_array($result)) {
             // fields validation error 
             $this->display('create', [
                 'email' => Factory::AuthVendor()->getEmail(),
+                'tasks' => Factory::TaskService()->getChildrenTasksByParentID(),
                 'errors' => $result,
-                'tasks' => Task::with('children')->where('parent_id', 0)->get(),
                 'delimiter' => '',
             ]);
         } else {
@@ -80,7 +82,7 @@ class TaskController extends MainController
             $this->display('edit', [
                 'task' => Factory::TaskService()->getTaskByID($id),
                 'email' => Factory::AuthVendor()->getEmail(),
-                'tasks' => Task::with('children')->where('parent_id', 0)->get(),
+                'tasks' => Factory::TaskService()->getChildrenTasksByParentID(),
                 'delimiter' => '',
             ]);
         } catch (\Exception $e) {
@@ -101,8 +103,8 @@ class TaskController extends MainController
                 // fields validation error 
                 $this->display('edit', [
                     'email' => Factory::AuthVendor()->getEmail(),
+                    'tasks' => Factory::TaskService()->getTasksByParentID(),
                     'errors' => $result,
-                    'tasks' => Task::where('parent_id', 0)->get(),
                     'delimiter' => '',
                 ]);
             } else {
