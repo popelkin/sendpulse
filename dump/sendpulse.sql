@@ -41,7 +41,8 @@ CREATE TABLE `tasks` (
   `parent_id` int(11) NOT NULL DEFAULT '0',
   `done` tinyint(4) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL,
-  `updated_at` timestamp NOT NULL
+  `updated_at` timestamp NOT NULL,
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -131,7 +132,8 @@ ALTER TABLE `tasks`
   ADD PRIMARY KEY (`id`),
   ADD KEY `parent_id` (`parent_id`),
   ADD KEY `date` (`date`),
-  ADD KEY `done` (`done`);
+  ADD KEY `done` (`done`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Индексы таблицы `users`
@@ -225,7 +227,8 @@ CREATE TABLE `tasks` (
   `parent_id` int(11) NOT NULL DEFAULT '0',
   `done` tinyint(4) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL,
-  `updated_at` timestamp NOT NULL
+  `updated_at` timestamp NOT NULL,
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -315,7 +318,8 @@ ALTER TABLE `tasks`
   ADD PRIMARY KEY (`id`),
   ADD KEY `parent_id` (`parent_id`),
   ADD KEY `date` (`date`),
-  ADD KEY `done` (`done`);
+  ADD KEY `done` (`done`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Индексы таблицы `users`
