@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Дек 12 2018 г., 21:05
+-- Время создания: Дек 13 2018 г., 18:19
 -- Версия сервера: 5.7.23-log
 -- Версия PHP: 7.2.10
 
@@ -40,7 +40,7 @@ CREATE TABLE `tasks` (
   `done` tinyint(4) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL,
   `updated_at` timestamp NOT NULL,
-  `user_id` int(11) NOT NULL
+  `user_id` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -208,7 +208,6 @@ ALTER TABLE `users_resets`
 --
 -- База данных: `sendpulse_test`
 --
-
 USE `sendpulse_test`;
 
 -- --------------------------------------------------------
@@ -226,7 +225,7 @@ CREATE TABLE `tasks` (
   `done` tinyint(4) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL,
   `updated_at` timestamp NOT NULL,
-  `user_id` int(11) NOT NULL
+  `user_id` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

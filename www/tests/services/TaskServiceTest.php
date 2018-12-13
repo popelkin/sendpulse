@@ -21,7 +21,8 @@ class TaskServiceTest extends TestCase
         $data = [
             'title' => 'Test title',
             'body' => 'Test body',
-            'date' => date('Y-m-d H:i:s')
+            'date' => date('Y-m-d H:i:s'),
+            'user_id' => 1,
         ];
         $taskNew = Factory::TaskService()->addTask($data);
 
@@ -42,6 +43,7 @@ class TaskServiceTest extends TestCase
             'title' => "Title task",
             'body' => "Body task",
             'date' => date("Y-m-d"),
+            'user_id' => 1,
         ];
         $task = Factory::TaskService()->addTask($data);
 
@@ -60,6 +62,7 @@ class TaskServiceTest extends TestCase
             'title' => "Title task",
             'body' => "Body task",
             'date' => date("Y-m-d"),
+            'user_id' => 1,
         ];
         $parentTask = Factory::TaskService()->addTask($parentData);
 
@@ -68,6 +71,7 @@ class TaskServiceTest extends TestCase
             'body' => "Body child task",
             'date' => date("Y-m-d", time() + 7 * self::ONE_DAY_SECONDS),
             'parent_id' => $parentTask->id,
+            'user_id' => 1,
         ];
 
         $childTask = Factory::TaskService()->addTask($childTaskData);
@@ -130,6 +134,7 @@ class TaskServiceTest extends TestCase
             'title' => "Title task",
             'body' => "Body task",
             'date' => date("Y-m-d"),
+            'user_id' => 1,
         ];
         $parentTask = Factory::TaskService()->addTask($parentData);
 
@@ -138,6 +143,7 @@ class TaskServiceTest extends TestCase
             'body' => "Body child task",
             'date' => date("Y-m-d", time() + 7 * self::ONE_DAY_SECONDS),
             'parent_id' => $parentTask->id,
+            'user_id' => 1,
         ];
 
         $childTask = Factory::TaskService()->addTask($childTaskData);
@@ -148,6 +154,7 @@ class TaskServiceTest extends TestCase
             'body' => "Body child task 2",
             'date' => date("Y-m-d", time() + 7 * self::ONE_DAY_SECONDS),
             'parent_id' => $childID,
+            'user_id' => 1,
         ];
         
         $result = Factory::TaskService()->addTask($childTaskData2);
