@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Дек 09 2018 г., 23:44
+-- Время создания: Дек 12 2018 г., 21:05
 -- Версия сервера: 5.7.23-log
 -- Версия PHP: 7.2.10
 
@@ -23,8 +23,6 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `sendpulse` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 CREATE DATABASE IF NOT EXISTS `sendpulse_test` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-GRANT ALL PRIVILEGES ON sendpulse_test.* TO 'user' identified by 'test';
-
 USE `sendpulse`;
 
 -- --------------------------------------------------------
@@ -210,7 +208,7 @@ ALTER TABLE `users_resets`
 --
 -- База данных: `sendpulse_test`
 --
-CREATE DATABASE IF NOT EXISTS `sendpulse_test` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+
 USE `sendpulse_test`;
 
 -- --------------------------------------------------------
